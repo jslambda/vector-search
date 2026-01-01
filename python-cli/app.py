@@ -48,7 +48,7 @@ class VectorSearchIndex:
                 **{k: v for k, v in d.items() if k not in ("id", "vector", "norm")}
             })
 
-    def to_list(self) -> dict:
+    def to_list(self) -> list[dict]:
         """
         Convert the index into a JSON-serializable dictionary.
         """
@@ -74,7 +74,7 @@ class VectorSearchIndex:
         return json_str
 
 
-def embed_batch(texts: List[str], model_name: str = None) -> List[np.ndarray]:
+def embed_batch(texts: List[str], model_name: None | str = None) -> List[np.ndarray]:
     """
     Encode a batch of strings into normalized float32 vectors.
     """
@@ -88,9 +88,9 @@ def embed_batch(texts: List[str], model_name: str = None) -> List[np.ndarray]:
 
 
 def vectorize_docs(
-        docs, 
-        batch_size: int, 
-        output: Optional[Path], 
+        docs,
+        batch_size: int,
+        output: Optional[Path],
         text_extractor:Callable[[Dict[str, Any]], str] = lambda doc: doc["text_block"],
         verbose=False) -> VectorSearchIndex:
     # batch-index the documents
