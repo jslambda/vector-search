@@ -124,12 +124,18 @@ def vectorize_docs(
 
 def main() -> None:
     p = argparse.ArgumentParser(
-        description="Vectorize a JSON file of docs."
+        description=(
+            "Vectorize a JSON file of docs, or load an existing JSON file "
+            "that already includes vectorized data."
+        )
     )
     p.add_argument(
         "data_path",
         type=Path,
-        help="Path to your JSON file (an array of objects with 'header' & 'text_block').",
+        help=(
+            "Path to a JSON file containing either raw docs (array of objects with "
+            "'header' & 'text_block') or a previously vectorized index."
+        ),
     )
     p.add_argument(
         "--batch-size",
